@@ -13,6 +13,16 @@ const config: Config = {
         foreground: "var(--foreground)",
       },
     },
+    container: {
+      center: true,
+      padding: "1rem",
+      screens: {
+        sm: "640px",
+        md: "768px",
+        lg: "960px",
+        xl: "1300px",
+      },
+    },
   },
   plugins: [],
 };
