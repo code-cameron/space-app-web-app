@@ -4,6 +4,7 @@
 
 :root {
   --background: #3177e8;
+  --backgroundTwo: #75a3ee;
   --foreground: #fff;
 }
 
@@ -22,7 +23,7 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
-  position: relative; /* Ensure relative positioning for the pseudo-element */
+  position: relative; 
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -31,7 +32,6 @@ body {
   min-height: 100vh;
 }
 
-/* Add background image with opacity using pseudo-element */
 body::before {
   content: "";
   position: absolute;
@@ -99,4 +99,14 @@ p {
   }
 }
 
+h3
+{
+  font-size: 18px;
+  margin: 0;
+align-items:self-end;
+}
 
+:active nav 
+{
+  color: #fff;
+}

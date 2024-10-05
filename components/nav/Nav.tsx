@@ -20,7 +20,7 @@ const Nav = () => {
               href={link.path}
               className={`${
                 link.path === pathname
-                  ? "bg-backgroundLayer text-blue-600"
+                  ? "bg-backgroundLayer text-grey-600"
                   : "hover:text-blue-600"
               } capitalize text-lg transition-all rounded-md px-4 py-2`}
             >
