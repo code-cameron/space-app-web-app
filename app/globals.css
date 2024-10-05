@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #3177e8;
+  --foreground: #fff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -14,10 +14,37 @@
   }
 }
 
+
+
+
+
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  position: relative; /* Ensure relative positioning for the pseudo-element */
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+}
+
+/* Add background image with opacity using pseudo-element */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/images/golden-glow-of-solar-system-n8x5gbmv5m9vom2b.jpg'); 
+  background-size: cover;
+  background-position: center;
+  opacity: 0.25; 
+  z-index: -1; 
+  pointer-events: none; 
 }
 
 @layer utilities {
@@ -25,3 +52,51 @@ body {
     text-wrap: balance;
   }
 }
+
+
+h1 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 60px;
+  text-align: center;
+  position: relative;
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  height: 5px;
+  background: yellow;
+  width: 0;
+  transition: width 0.5s ease;
+}
+
+h1.animate-underline::after {
+  width: 100%;
+}
+
+h2 {
+  margin: 0;
+}
+
+p {
+  margin-top: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 48px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+}
+
+
