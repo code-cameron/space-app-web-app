@@ -15,10 +15,6 @@
   }
 }
 
-
-
-
-
 body {
   color: var(--foreground);
   background: var(--background);
@@ -53,10 +49,9 @@ body::before {
   }
 }
 
-
 h1 {
   font-family: Georgia, 'Times New Roman', Times, serif;
-  font-size: 60px;
+  font-size: 48px; /* Smaller size for mobile */
   text-align: center;
   position: relative;
 }
@@ -84,29 +79,35 @@ p {
   margin-top: 8px;
 }
 
+h3 {
+  font-size: 18px;
+  margin: 0;
+}
+
+:active nav {
+  color: #fff;
+}
+
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (min-width: 640px) {
   h1 {
-    font-size: 48px;
+    font-size: 60px; /* Larger size for screens >= 640px */
   }
 
   h2 {
-    font-size: 18px;
+    font-size: 24px;
   }
 
   p {
-    font-size: 16px;
+    font-size: 18px;
   }
 }
 
-h3
-{
-  font-size: 18px;
-  margin: 0;
-align-items:self-end;
-}
-
-:active nav 
-{
-  color: #fff;
+/* Video Styling */
+video {
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
