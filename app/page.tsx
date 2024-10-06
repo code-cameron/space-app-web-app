@@ -4,19 +4,18 @@ import Image from "next/image";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
-  const [isContentVisible, setIsContentVisible] = useState(false); // State for content visibility
-  const [isAnimated, setIsAnimated] = useState(false); // State for underline animation
-  const [showScrollText, setShowScrollText] = useState(false); // State for scroll-triggered text
-  const [currentTime, setCurrentTime] = useState(new Date()); // State for current time
+  const [isContentVisible, setIsContentVisible] = useState(false);
+  const [isAnimated, setIsAnimated] = useState(false);
+  const [showScrollText, setShowScrollText] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
-    // Show loading GIF and background for 2 seconds, then reveal the content and trigger animation
     const timer = setTimeout(() => {
-      setIsLoading(false); // Hide GIF after 2 seconds
-      setIsContentVisible(true); // Start showing the content
+      setIsLoading(false);
+      setIsContentVisible(true);  // Show content after GIF
       setTimeout(() => {
-        setIsAnimated(true); // Start underline animation after content becomes visible
-      }, 1000); // Delay to ensure content is shown before underline
+        setIsAnimated(true);  // Start underline animation
+      }, 1000);
     }, 2000);
 
     return () => clearTimeout(timer);
@@ -24,12 +23,10 @@ export default function Home() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Check if the user has scrolled down at least 90% of the page
       if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight * 0.9) {
-        setShowScrollText(true); // Show scroll-triggered text
+        setShowScrollText(true);
       }
 
-      // Update progress bar width on scroll
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrolled = (winScroll / height) * 100;
@@ -45,10 +42,10 @@ export default function Home() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTime(new Date()); // Update the current time every second
+      setCurrentTime(new Date());
     }, 1000);
 
-    return () => clearInterval(interval); // Cleanup the interval on unmount
+    return () => clearInterval(interval);
   }, []);
 
   const formatDateTime = (date: Date) => {
@@ -72,7 +69,7 @@ export default function Home() {
       {isLoading && (
         <div className="absolute top-40 left-0 right-0 flex justify-center mt-0 z-10">
           <Image
-            src="/images/gani.gif" // Ensure this file path is correct
+            src="/images/gani.gif"
             alt="Loading..."
             width={400}
             height={300}
@@ -83,7 +80,7 @@ export default function Home() {
         </div>
       )}
 
-      {/* Background elements like stars, twinkling, and clouds */}
+      {/* Background elements */}
       <div className="background-container">
         <img
           src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/moon2.png"
@@ -95,25 +92,17 @@ export default function Home() {
         <div className="clouds"></div>
       </div>
 
-      {/* Display main content after the first 2 seconds */}
       {!isLoading && (
         <div
-          className={`relative flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 md:p-8 rounded-lg shadow-lg overflow-hidden fade-in-slide ${
-            isContentVisible ? "opacity-100" : "opacity-0"
-          }`}
+          className={`relative flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 md:p-8 rounded-lg shadow-lg overflow-hidden fade-in-slide ${isContentVisible ? "opacity-100" : "opacity-0"}`}
         >
-          <h1
-            className={`text-blue-500 text-3xl sm:text-5xl lg:text-6xl transition-all duration-1000 ease-out ${
-              isAnimated ? "animate-underline" : ""
-            }`}
-          >
+          <h1 className={`text-blue-500 text-3xl sm:text-5xl lg:text-6xl transition-all duration-1000 ease-out ${isAnimated ? "animate-underline" : ""}`}>
             Welcome to Planetary Seismology Explorer
           </h1>
 
-          <div className="flex flex-col md:flex-row items-center mt-8">
-            {/* Image on the left side */}
+          <div className="flex flex-col md:flex-row items-center mt-8 fade-in-slide">
             <Image
-              src="/images/image1.webp" // Ensure this path is correct
+              src="/images/image1.webp"
               alt="Seismology Image"
               width={600}
               height={400}
@@ -122,7 +111,6 @@ export default function Home() {
               className="mb-4 md:mb-0 rounded-lg shadow-md"
             />
 
-            {/* Text on the right side */}
             <div className="md:ml-8 text-center md:text-left">
               <h2 className="text-white text-lg sm:text-xl md:text-2xl mb-2 hover:text-shadow-lg">
                 Unlocking the Secrets of Seismic Events on Other Worlds
@@ -149,10 +137,8 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Scroll-triggered text and image that appear when scrolled 90% */}
           {showScrollText && (
             <div className="scroll-text-container fade-in-scroll flex items-center">
-              {/* Scroll-triggered text */}
               <div className="scroll-text-left text-white text-lg sm:text-xl md:text-2xl p-4 sm:p-6 md:p-8">
                 <h3 className="text-white text-lg sm:text-xl md:text-2xl mb-2">Advancing Planetary Insights</h3>
                 <p>
@@ -165,20 +151,18 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Scroll-triggered image with fade-in animation */}
               <div className="scroll-image-right">
                 <Image
-                  src="/images/img3.avif" // Using the same image path for now
+                  src="/images/img3.avif"
                   alt="Scroll Image"
-                  width={400} // Adjust this width as needed
+                  width={400}
                   height={300}
-                  className="rounded-lg shadow-md fade-in-image" // Added class for fade-in animation
+                  className="rounded-lg shadow-md fade-in-image"
                 />
               </div>
             </div>
           )}
 
-          {/* Date and time at the bottom of the page */}
           <div id="date-time" className="text-white text-lg">
             {formatDateTime(currentTime)}
           </div>

@@ -26,7 +26,28 @@ body {
   scroll-behavior: smooth;
 }
 
-/* Progress bar */
+/* NAVIGATION */
+nav {
+  position: relative;
+  z-index: 10;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+nav a {
+  color: #00f3ff;
+  text-decoration: none;
+  padding: 10px;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #fff;
+}
+
+/* PROGRESS BAR */
 #progress-bar {
   position: fixed;
   top: 0;
@@ -37,21 +58,19 @@ body {
   z-index: 99;
 }
 
-/* Hover effect for all headings */
+/* Headings with glow effect and hover states */
 h1, h2, h3 {
   font-family: Georgia, 'Times New Roman', Times, serif;
-  transform: scale(1.05); /* Apply the scaling and glow effect by default */
+  transform: scale(1.05);
   text-shadow: 0 0 20px #00f3ff;
   transition: transform 0.3s ease, text-shadow 0.3s ease;
 }
 
-/* Reverse hover: remove glow and scale when hovered */
 h1:hover, h2:hover, h3:hover {
-  transform: scale(1); /* Return to original size on hover */
-  text-shadow: none; /* Remove the glow effect on hover */
+  transform: scale(1);
+  text-shadow: none;
 }
 
-/* Only h1 is blue and has underline animation */
 h1 {
   color: #00f3ff;
 }
@@ -154,12 +173,7 @@ img {
   }
   100% {
     transform: translateY(0);
-} /* Ensure the keyframe block is properly closed */
 }
-
-/* Adjust gap between content and scroll-triggered text */
-.mt-80 {
-  margin-top: 25vh;
 }
 
 /* Fade-in and Slide-up animation */
@@ -171,9 +185,8 @@ img {
   100% {
     opacity: 1;
     transform: translateY(0);
-  }
 }
-
+}
 .fade-in-slide {
   animation: fadeSlideIn 2s ease-out;
 }
@@ -188,14 +201,21 @@ img {
   transition: opacity 1.5s ease-in-out;
 }
 
+/* Adjust scroll content and layout */
 .scroll-text-container {
   margin-top: 25vh;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .scroll-text-left {
   text-align: left;
+  width: 60%;
+}
+
+.scroll-image-right {
+  width: 40%;
 }
 
 .scroll-image-right img {
@@ -212,10 +232,8 @@ img {
   100% {
     opacity: 1;
     transform: translateX(0);
-  }
 }
-
-/* Scroll-triggered text animation */
+}
 @keyframes fadeInText {
   0% {
     opacity: 0;
@@ -224,9 +242,8 @@ img {
   100% {
     opacity: 1;
     transform: translateX(0);
-  }
 }
-
+}
 .scroll-text-left p {
   animation: fadeInText 1.5s ease-in-out;
 }
@@ -241,7 +258,7 @@ img {
   z-index: 999;
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments for mobile */
 @media (max-width: 768px) {
   .moving-bg-image {
     max-width: 50vh;
@@ -252,20 +269,62 @@ img {
     font-size: 30px;
   }
 
-  .mt-80 {
-    margin-top: 20vh;
+  .scroll-text-container {
+    flex-direction: column; /* Stack image and text vertically */
+    justify-content: center;
+    align-items: center;
   }
 
   .scroll-text-left,
   .scroll-image-right {
     width: 100%;
+    text-align: center;
   }
 
   .scroll-text-left {
     margin-bottom: 10px;
   }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  p {
+    font-size: 18px;
+  }
 }
 
+/* Tablet/iPad responsiveness (768px to 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .flex-col {
+    flex-direction: column;
+  }
+
+  .scroll-text-container {
+    flex-direction: column; /* Stack image and text vertically */
+    justify-content: center;
+    align-items: center;
+  }
+
+  .scroll-text-left, .scroll-image-right {
+    width: 100%; /* Full width for text and image */
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 48px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  p {
+    font-size: 18px;
+  }
+}
+
+/* Desktop screens */
 @media (min-width: 1024px) {
   h1 {
     font-size: 60px;
@@ -285,9 +344,5 @@ img {
 
   .scroll-image-right {
     width: 40%;
-  }
-
-  .mt-80 {
-    margin-top: 25vh;
   }
 }
