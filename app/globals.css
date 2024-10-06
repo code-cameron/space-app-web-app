@@ -39,7 +39,7 @@ nav a {
   font-size: 18px;
 }
 
-/* Specific styling for the moving background image */
+/* Moving background image styling */
 .moving-bg-image {
   height: 70vh;
   width: 70vh;
@@ -149,7 +149,7 @@ h3 {
   margin: 0;
 }
 
-/* Fade-in and Slide-up animation */
+/* Fade-in and Slide-up animation for main content */
 @keyframes fadeSlideIn {
   0% {
     opacity: 0;
@@ -165,13 +165,56 @@ h3 {
   animation: fadeSlideIn 2s ease-out;
 }
 
+/* Fade-in animation for scroll-triggered text */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px); /* Text fades in from left */
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fade-in-scroll {
+  animation: fadeIn 2s ease-out;
+}
+
+/* Fade-in animation for scroll-triggered image */
+@keyframes fadeInImage {
+  0% {
+    opacity: 0;
+    transform: translateX(50px); /* Image fades in from right */
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fade-in-image {
+  animation: fadeInImage 2s ease-out;
+}
+
+/* Scroll-triggered text and image container styling */
+.scroll-text-container {
+  margin-top: 25vh; /* Increase gap between existing content and scroll-triggered content */
+  display: flex;
+  justify-content: space-between;
+}
+
+.scroll-text-left {
+  max-width: 50%;
+}
+
+.scroll-image-right {
+  max-width: 40%;
+}
+
 .relative {
   position: relative;
   z-index: 1;
-}
-
-:active nav {
-  color: #fff;
 }
 
 /* Responsive adjustments */
