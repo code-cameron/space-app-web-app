@@ -4,6 +4,7 @@
 
 :root {
   --foreground: #fff;
+  --heading-glow: 0 0 10px #00f3ff, 0 0 20px #00f3ff, 0 0 30px #00f3ff, 0 0 40px #00f3ff, 0 0 50px #00f3ff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,88 +23,37 @@ body {
   align-items: center;
   justify-content: flex-start;
   min-height: 100vh;
+  scroll-behavior: smooth;
 }
 
-/* Navigation styling */
-nav {
-  position: relative;
-  z-index: 10; /* Ensure nav is above the background elements */
-  color: #fff;
-  padding: 10px;
-}
-
-nav a {
-  color: #fff; /* Ensure links are visible */
-  text-decoration: none;
-  padding: 10px;
-  font-size: 18px;
-}
-
-/* Moving background image responsiveness */
-.moving-bg-image {
-  height: auto;
-  width: auto;
-  max-width: 60vh; /* Prevents stretching on mobile */
-  max-height: 60vh;
-  position: absolute;
-  z-index: 3;
-  right: 20px;
-  object-fit: contain; /* Maintain aspect ratio */
-}
-
-.background-container {
+/* Progress bar */
+#progress-bar {
   position: fixed;
   top: 0;
   left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: -1;
-  overflow: hidden; /* Prevent background overflow */
+  width: 0%;
+  height: 4px;
+  background-color: #00f3ff;
+  z-index: 99;
 }
 
-.stars, .twinkling, .clouds {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-size: cover; /* Ensures background doesn't stretch */
-}
-
-.stars {
-  background: black url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png') repeat;
-  z-index: 0;
-}
-
-.twinkling {
-  background: transparent url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/twinkling.png") repeat;
-  background-size: contain; /* Better responsiveness */
-  z-index: 2;
-  animation: move-background 70s linear infinite;
-}
-
-.clouds {
-  background: transparent url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/clouds_repeat.png") repeat;
-  background-size: contain; /* Adjust for responsiveness */
-  z-index: 3;
-  animation: move-background 150s linear infinite;
-}
-
-/* Keyframes for the background movement */
-@keyframes move-background {
-  from {
-    transform: translate3d(0px, 0px, 0px);
-  }
-  to { 
-    transform: translate3d(1000px, 0px, 0px);
-  }
-}
-
-h1 {
+/* Hover effect for all headings */
+h1, h2, h3 {
   font-family: Georgia, 'Times New Roman', Times, serif;
-  font-size: 36px;
-  text-align: center;
-  position: relative;
+  transform: scale(1.05); /* Apply the scaling and glow effect by default */
+  text-shadow: 0 0 20px #00f3ff;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* Reverse hover: remove glow and scale when hovered */
+h1:hover, h2:hover, h3:hover {
+  transform: scale(1); /* Return to original size on hover */
+  text-shadow: none; /* Remove the glow effect on hover */
+}
+
+/* Only h1 is blue and has underline animation */
+h1 {
+  color: #00f3ff;
 }
 
 h1::after {
@@ -121,20 +71,98 @@ h1.animate-underline::after {
   width: 100%;
 }
 
-h2 {
-  margin: 0;
+/* Moving background image responsiveness */
+.moving-bg-image {
+  height: auto;
+  width: auto;
+  max-width: 60vh;
+  max-height: 60vh;
+  position: absolute;
+  z-index: 3;
+  right: 20px;
+  object-fit: contain;
 }
 
-p {
-  margin-top: 8px;
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  overflow: hidden;
 }
 
-h3 {
-  font-size: 18px;
-  margin: 0;
+.stars {
+  background: black url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png') repeat;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: block;
+  z-index: 0;
+  transform: translateY(0);
 }
 
-/* Fade-in and Slide-up animation for main content */
+.twinkling {
+  width: 10000px;
+  height: 100%;
+  background: transparent url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/twinkling.png") repeat;
+  background-size: 1000px 1000px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  animation: move-background 70s linear infinite;
+}
+
+.clouds {
+  width: 10000px;
+  height: 100%;
+  background: transparent url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/clouds_repeat.png") repeat;
+  background-size: 1000px 1000px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 3;
+  animation: move-background 150s linear infinite;
+}
+
+@keyframes move-background {
+  from {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  to {
+    transform: translate3d(1000px, 0px, 0px);
+  }
+}
+
+/* Floating animation for images */
+img {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+} /* Ensure the keyframe block is properly closed */
+}
+
+/* Adjust gap between content and scroll-triggered text */
+.mt-80 {
+  margin-top: 25vh;
+}
+
+/* Fade-in and Slide-up animation */
 @keyframes fadeSlideIn {
   0% {
     opacity: 0;
@@ -150,107 +178,95 @@ h3 {
   animation: fadeSlideIn 2s ease-out;
 }
 
-/* Fade-in animation for scroll-triggered text */
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateX(-50px); /* Text fades in from left */
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.fade-in-scroll {
-  animation: fadeIn 2s ease-out;
-}
-
-/* Fade-in animation for scroll-triggered image */
-@keyframes fadeInImage {
-  0% {
-    opacity: 0;
-    transform: translateX(50px); /* Image fades in from right */
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.fade-in-image {
-  animation: fadeInImage 2s ease-out;
-}
-
-/* Scroll-triggered text and image container styling */
-.scroll-text-container {
-  margin-top: 25vh; /* Increase gap between existing content and scroll-triggered content */
-  display: flex;
-  justify-content: space-between;
-}
-
-.scroll-text-left {
-  max-width: 50%;
-}
-
-.scroll-image-right {
-  max-width: 40%;
-}
-
 .relative {
   position: relative;
   z-index: 1;
 }
 
-/* Responsive adjustments */
-@media (max-width: 640px) {
-  /* Mobile devices */
-  h1 {
-    font-size: 30px;
-  }
+.fade-in-scroll {
+  opacity: 1;
+  transition: opacity 1.5s ease-in-out;
+}
 
+.scroll-text-container {
+  margin-top: 25vh;
+  display: flex;
+  justify-content: space-between;
+}
+
+.scroll-text-left {
+  text-align: left;
+}
+
+.scroll-image-right img {
+  max-width: 100%;
+  height: auto;
+  animation: fadeInImage 1.5s ease-in-out;
+}
+
+@keyframes fadeInImage {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Scroll-triggered text animation */
+@keyframes fadeInText {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.scroll-text-left p {
+  animation: fadeInText 1.5s ease-in-out;
+}
+
+/* Date and time at the end of the page */
+#date-time {
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+  color: #00f3ff;
+  font-size: 16px;
+  z-index: 999;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .moving-bg-image {
     max-width: 50vh;
     max-height: 50vh;
   }
 
-  .scroll-text-container {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+  h1 {
+    font-size: 30px;
+  }
+
+  .mt-80 {
+    margin-top: 20vh;
+  }
+
+  .scroll-text-left,
+  .scroll-image-right {
+    width: 100%;
   }
 
   .scroll-text-left {
-    max-width: 100%;
-  }
-
-  .scroll-image-right {
-    max-width: 80%;
-    margin-top: 10px;
-  }
-}
-
-@media (min-width: 768px) {
-  /* Tablets and iPads */
-  h1 {
-    font-size: 48px;
-  }
-
-  h2 {
-    font-size: 24px;
-  }
-
-  p {
-    font-size: 18px;
-  }
-
-  .scroll-text-container {
-    margin-top: 20vh;
+    margin-bottom: 10px;
   }
 }
 
 @media (min-width: 1024px) {
-  /* Laptops and Desktops */
   h1 {
     font-size: 60px;
   }
@@ -263,12 +279,15 @@ h3 {
     font-size: 20px;
   }
 
-  .scroll-text-container {
-    margin-top: 15vh;
+  .scroll-text-left {
+    width: 60%;
   }
-}
 
-.scroll-text-left h3 {
-  color: rgb(189, 189, 221);
-  text-decoration: underline;
+  .scroll-image-right {
+    width: 40%;
+  }
+
+  .mt-80 {
+    margin-top: 25vh;
+  }
 }

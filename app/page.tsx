@@ -7,6 +7,7 @@ export default function Home() {
   const [isContentVisible, setIsContentVisible] = useState(false); // State for content visibility
   const [isAnimated, setIsAnimated] = useState(false); // State for underline animation
   const [showScrollText, setShowScrollText] = useState(false); // State for scroll-triggered text
+  const [currentTime, setCurrentTime] = useState(new Date()); // State for current time
 
   useEffect(() => {
     // Show loading GIF and background for 2 seconds, then reveal the content and trigger animation
@@ -27,6 +28,12 @@ export default function Home() {
       if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight * 0.9) {
         setShowScrollText(true); // Show scroll-triggered text
       }
+
+      // Update progress bar width on scroll
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById("progress-bar")!.style.width = scrolled + "%";
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -36,8 +43,32 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date()); // Update the current time every second
+    }, 1000);
+
+    return () => clearInterval(interval); // Cleanup the interval on unmount
+  }, []);
+
+  const formatDateTime = (date: Date) => {
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+    };
+    return date.toLocaleDateString(undefined, options);
+  };
+
   return (
     <div className="relative min-h-screen">
+      {/* Progress bar */}
+      <div id="progress-bar" className="fixed top-0 left-0 h-1 bg-yellow z-50"></div>
+
       {isLoading && (
         <div className="absolute top-40 left-0 right-0 flex justify-center mt-0 z-10">
           <Image
@@ -72,7 +103,7 @@ export default function Home() {
           }`}
         >
           <h1
-            className={`text-white text-3xl sm:text-5xl lg:text-6xl transition-all duration-1000 ease-out ${
+            className={`text-blue-500 text-3xl sm:text-5xl lg:text-6xl transition-all duration-1000 ease-out ${
               isAnimated ? "animate-underline" : ""
             }`}
           >
@@ -93,7 +124,7 @@ export default function Home() {
 
             {/* Text on the right side */}
             <div className="md:ml-8 text-center md:text-left">
-              <h2 className="text-white text-lg sm:text-xl md:text-2xl mb-2">
+              <h2 className="text-white text-lg sm:text-xl md:text-2xl mb-2 hover:text-shadow-lg">
                 Unlocking the Secrets of Seismic Events on Other Worlds
               </h2>
 
@@ -104,7 +135,9 @@ export default function Home() {
                 manual detection methods help scientists focus on the seismic signals that matter.
               </p>
 
-              <h3 className="text-white text-lg sm:text-xl md:text-2xl mb-2 mt-6">Optimize the Mission</h3>
+              <h3 className="text-white text-lg sm:text-xl md:text-2xl mb-2 mt-6">
+                Optimize the Mission
+              </h3>
 
               <p className="text-white mt-4 text-sm sm:text-base md:text-lg">
                 Maximizing the value of seismic data is critical for planetary exploration, given the limitations in
@@ -137,13 +170,18 @@ export default function Home() {
                 <Image
                   src="/images/img3.avif" // Using the same image path for now
                   alt="Scroll Image"
-                  width={500} // Adjust this width as needed
-                  height={400}
+                  width={400} // Adjust this width as needed
+                  height={300}
                   className="rounded-lg shadow-md fade-in-image" // Added class for fade-in animation
                 />
               </div>
             </div>
           )}
+
+          {/* Date and time at the bottom of the page */}
+          <div id="date-time" className="text-white text-lg">
+            {formatDateTime(currentTime)}
+          </div>
         </div>
       )}
     </div>
