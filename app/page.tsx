@@ -137,8 +137,8 @@ export default function Home() {
                 <Image
                   src="/images/img3.avif" // Using the same image path for now
                   alt="Scroll Image"
-                  width={400} // Adjust this width as needed
-                  height={300}
+                  width={500} // Adjust this width as needed
+                  height={400}
                   className="rounded-lg shadow-md fade-in-image" // Added class for fade-in animation
                 />
               </div>

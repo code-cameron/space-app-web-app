@@ -39,13 +39,16 @@ nav a {
   font-size: 18px;
 }
 
-/* Moving background image styling */
+/* Moving background image responsiveness */
 .moving-bg-image {
-  height: 70vh;
-  width: 70vh;
+  height: auto;
+  width: auto;
+  max-width: 60vh; /* Prevents stretching on mobile */
+  max-height: 60vh;
   position: absolute;
   z-index: 3;
   right: 20px;
+  object-fit: contain; /* Maintain aspect ratio */
 }
 
 .background-container {
@@ -55,52 +58,34 @@ nav a {
   bottom: 0;
   right: 0;
   z-index: -1;
+  overflow: hidden; /* Prevent background overflow */
+}
+
+.stars, .twinkling, .clouds {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover; /* Ensures background doesn't stretch */
 }
 
 .stars {
   background: black url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png') repeat;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: block;
   z-index: 0;
 }
 
 .twinkling {
-  width: 10000px;
-  height: 100%;
   background: transparent url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/twinkling.png") repeat;
-  background-size: 1000px 1000px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
+  background-size: contain; /* Better responsiveness */
   z-index: 2;
-  
-  -moz-animation: move-background 70s linear infinite;
-  -ms-animation: move-background 70s linear infinite;
-  -o-animation: move-background 70s linear infinite;
-  -webkit-animation: move-background 70s linear infinite;
   animation: move-background 70s linear infinite;
 }
 
 .clouds {
-  width: 10000px;
-  height: 100%;
   background: transparent url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/clouds_repeat.png") repeat;
-  background-size: 1000px 1000px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
+  background-size: contain; /* Adjust for responsiveness */
   z-index: 3;
-
-  -moz-animation: move-background 150s linear infinite;
-  -ms-animation: move-background 150s linear infinite;
-  -o-animation: move-background 150s linear infinite;
-  -webkit-animation: move-background 150s linear infinite;
   animation: move-background 150s linear infinite;
 }
 
@@ -116,7 +101,7 @@ nav a {
 
 h1 {
   font-family: Georgia, 'Times New Roman', Times, serif;
-  font-size: 36px; /* Smaller size for mobile */
+  font-size: 36px;
   text-align: center;
   position: relative;
 }
@@ -218,7 +203,35 @@ h3 {
 }
 
 /* Responsive adjustments */
-@media (min-width: 640px) {
+@media (max-width: 640px) {
+  /* Mobile devices */
+  h1 {
+    font-size: 30px;
+  }
+
+  .moving-bg-image {
+    max-width: 50vh;
+    max-height: 50vh;
+  }
+
+  .scroll-text-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .scroll-text-left {
+    max-width: 100%;
+  }
+
+  .scroll-image-right {
+    max-width: 80%;
+    margin-top: 10px;
+  }
+}
+
+@media (min-width: 768px) {
+  /* Tablets and iPads */
   h1 {
     font-size: 48px;
   }
@@ -230,9 +243,14 @@ h3 {
   p {
     font-size: 18px;
   }
+
+  .scroll-text-container {
+    margin-top: 20vh;
+  }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
+  /* Laptops and Desktops */
   h1 {
     font-size: 60px;
   }
@@ -244,4 +262,13 @@ h3 {
   p {
     font-size: 20px;
   }
+
+  .scroll-text-container {
+    margin-top: 15vh;
+  }
+}
+
+.scroll-text-left h3 {
+  color: rgb(189, 189, 221);
+  text-decoration: underline;
 }
