@@ -3,24 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --background: #3177e8;
-  --backgroundTwo: #75a3ee;
-  --backgroundTwoTransparent: rgba(117, 163, 238, 0); /* Transparent */
   --foreground: #fff;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
     --foreground: #ededed;
-    --backgroundTwo: rgba(10, 10, 10, 1);
-    --backgroundTwoTransparent: rgba(10, 10, 10, 0); /* Dark transparent */
   }
 }
 
 body {
   color: var(--foreground);
-  background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   position: relative;
   margin: 0;
@@ -31,24 +24,93 @@ body {
   min-height: 100vh;
 }
 
-body::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('/images/golden-glow-of-solar-system-n8x5gbmv5m9vom2b.jpg');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.25;
-  z-index: -1;
-  pointer-events: none;
+/* Navigation styling */
+nav {
+  position: relative;
+  z-index: 10; /* Ensure nav is above the background elements */
+  color: #fff;
+  padding: 10px;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+nav a {
+  color: #fff; /* Ensure links are visible */
+  text-decoration: none;
+  padding: 10px;
+  font-size: 18px;
+}
+
+/* Specific styling for the moving background image */
+.moving-bg-image {
+  height: 70vh;
+  width: 70vh;
+  position: absolute;
+  z-index: 3;
+  right: 20px;
+}
+
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+}
+
+.stars {
+  background: black url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png') repeat;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: block;
+  z-index: 0;
+}
+
+.twinkling {
+  width: 10000px;
+  height: 100%;
+  background: transparent url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/twinkling.png") repeat;
+  background-size: 1000px 1000px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  
+  -moz-animation: move-background 70s linear infinite;
+  -ms-animation: move-background 70s linear infinite;
+  -o-animation: move-background 70s linear infinite;
+  -webkit-animation: move-background 70s linear infinite;
+  animation: move-background 70s linear infinite;
+}
+
+.clouds {
+  width: 10000px;
+  height: 100%;
+  background: transparent url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/clouds_repeat.png") repeat;
+  background-size: 1000px 1000px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 3;
+
+  -moz-animation: move-background 150s linear infinite;
+  -ms-animation: move-background 150s linear infinite;
+  -o-animation: move-background 150s linear infinite;
+  -webkit-animation: move-background 150s linear infinite;
+  animation: move-background 150s linear infinite;
+}
+
+/* Keyframes for the background movement */
+@keyframes move-background {
+  from {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  to { 
+    transform: translate3d(1000px, 0px, 0px);
   }
 }
 
@@ -103,7 +165,6 @@ h3 {
   animation: fadeSlideIn 2s ease-out;
 }
 
-/* Make sure nothing conflicts with z-index or position */
 .relative {
   position: relative;
   z-index: 1;
@@ -116,7 +177,7 @@ h3 {
 /* Responsive adjustments */
 @media (min-width: 640px) {
   h1 {
-    font-size: 48px; /* Larger size for screens >= 640px */
+    font-size: 48px;
   }
 
   h2 {
@@ -130,7 +191,7 @@ h3 {
 
 @media (min-width: 768px) {
   h1 {
-    font-size: 60px; /* Larger size for screens >= 768px */
+    font-size: 60px;
   }
 
   h2 {
