@@ -12,7 +12,7 @@ import {
   Legend,
   ChartOptions,
 } from "chart.js";
-import Papa from "papaparse";
+import Papa, { ParseResult } from "papaparse";
 
 ChartJS.register(
   CategoryScale,
@@ -30,24 +30,29 @@ interface DataPoint {
   y: number;
 }
 
+interface CSVRow {
+    time_abs: string;
+    velocity: string;
+  }
+
 const GraphOne = () => {
   // Use the DataPoint type for the dataset state
   const [dataset, setDataset] = useState<DataPoint[]>([]);
 
   useEffect(() => {
     // Read the CSV file
-    Papa.parse("/data/test.csv", {
+    Papa.parse<CSVRow>("/data/test.csv", {
       header: true,
       download: true,
-      complete: (results: any) => {
+      complete: (results: ParseResult<CSVRow>) => {
         // Transform the CSV data into the format needed for Chart.js
-        const data: DataPoint[] = results.data.map((item: any) => ({
+        const data: DataPoint[] = results.data.map((item: CSVRow) => ({
           x: new Date(item.time_abs).getTime(),
           y: parseFloat(item.velocity),
         }));
         setDataset(data);
       },
-      error: (error: any) => {
+      error: (error: Error) => {
         console.error("Error reading CSV:", error);
       },
     });

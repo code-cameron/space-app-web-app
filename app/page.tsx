@@ -8,7 +8,6 @@ export default function Home() {
   const [isAnimated, setIsAnimated] = useState(false);
   const [showScrollText, setShowScrollText] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [rocketPosition, setRocketPosition] = useState(0);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -27,7 +26,6 @@ export default function Home() {
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrolled = (winScroll / height) * 100;
-      setRocketPosition(scrolled);
 
       const progressBar = document.getElementById("progress-bar");
       const rocket = document.getElementById("rocket");
