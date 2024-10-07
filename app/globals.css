@@ -341,3 +341,48 @@ img {
     width: 40%;
   }
 }
+
+
+
+/* iPad Pro responsiveness (1024x1366) */
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .flex-col {
+    flex-direction: column;
+  }
+
+  /* Ensure the content before scroll is stacked vertically */
+  .flex-col.md\:flex-col.lg\:flex-row {
+    flex-direction: column;
+  }
+
+  /* Center-align content */
+  .md\:ml-0.lg\:ml-8 {
+    margin-left: 0;
+  }
+
+  .items-center {
+    flex-direction: column;
+  }
+
+  /* Ensure the text and image are full width on the iPad Pro */
+  .md\:text-center.lg\:text-left {
+    text-align: center;
+  }
+
+  .lg\:text-left {
+    text-align: center;
+  }
+
+  /* Adjust font sizes for iPad Pro */
+  h1 {
+    font-size: 48px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  p {
+    font-size: 18px;
+  }
+}
