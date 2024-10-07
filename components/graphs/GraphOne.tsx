@@ -12,6 +12,7 @@ import {
   Legend,
   ChartOptions,
 } from "chart.js";
+import Papa from "papaparse";
 
 ChartJS.register(
   CategoryScale,
@@ -22,10 +23,16 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-import Papa from "papaparse";
+
+// Define the structure of your dataset items
+interface DataPoint {
+  x: number; // or Date, depending on your usage
+  y: number;
+}
 
 const GraphOne = () => {
-  const [dataset, setDataset] = useState([]);
+  // Use the DataPoint type for the dataset state
+  const [dataset, setDataset] = useState<DataPoint[]>([]);
 
   useEffect(() => {
     // Read the CSV file
@@ -34,7 +41,7 @@ const GraphOne = () => {
       download: true,
       complete: (results: any) => {
         // Transform the CSV data into the format needed for Chart.js
-        const data = results.data.map((item: any) => ({
+        const data: DataPoint[] = results.data.map((item: any) => ({
           x: new Date(item.time_abs).getTime(),
           y: parseFloat(item.velocity),
         }));
@@ -45,8 +52,6 @@ const GraphOne = () => {
       },
     });
   }, []);
-  // Example dataset with actual timestamps (in milliseconds)
-
 
   const data = {
     datasets: [
@@ -83,8 +88,8 @@ const GraphOne = () => {
           display: true,
           text: "Time",
         },
-        min: dataset[0]?.x, // Set min to the first timestamp
-        max: dataset[dataset.length - 1]?.x, // Set max to the last timestamp
+        min: dataset.length > 0 ? dataset[0].x : undefined, // Set min to the first timestamp, undefined if empty
+        max: dataset.length > 0 ? dataset[dataset.length - 1].x : undefined, // Set max to the last timestamp, undefined if empty
         ticks: {
           callback: function (value, index, values) {
             // Show only the first and last tick
