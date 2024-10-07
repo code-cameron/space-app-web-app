@@ -8,29 +8,42 @@ export default function Home() {
   const [isAnimated, setIsAnimated] = useState(false);
   const [showScrollText, setShowScrollText] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [rocketPosition, setRocketPosition] = useState(0);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
       setTimeout(() => {
-        setIsContentVisible(true); // Set content visible with a delay
-        setIsAnimated(true); // Trigger the underline animation
-      }, 500); // Adjust the delay here if needed
-    }, 2000); // 2-second delay for the GIF
+        setIsContentVisible(true);
+        setIsAnimated(true);
+      }, 500);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight * 0.9) {
-        setShowScrollText(true);
-      }
-
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrolled = (winScroll / height) * 100;
-      document.getElementById("progress-bar")!.style.width = scrolled + "%";
+      setRocketPosition(scrolled);
+
+      const progressBar = document.getElementById("progress-bar");
+      const rocket = document.getElementById("rocket");
+
+      if (progressBar) {
+        progressBar.style.width = scrolled + "%"; // Update progress bar width
+      }
+
+      if (rocket) {
+        const rocketOffset = -10; // Adjust this value to fine-tune the rocket's position on the tip of the bar
+        rocket.style.left = `calc(${scrolled}% + ${rocketOffset}px)`; // Keep rocket at the tip
+      }
+
+      if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight * 0.9) {
+        setShowScrollText(true);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -63,8 +76,23 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen">
-      {/* Progress bar */}
-      <div id="progress-bar" className="fixed top-0 left-0 h-1 bg-yellow z-50"></div>
+    {/* Progress bar with rocket */}
+    <div id="progress-bar" className="fixed top-0 left-0 h-1 bg-yellow z-50"></div>
+    <img
+      id="rocket"
+      src="/images/r2.png" // Path to your rocket image
+      alt="Rocket"
+      className="absolute" // Keep it absolute for positioning
+      style={{ 
+        position: 'fixed', 
+        top: '-20px', // Adjust this value to position it correctly above the progress bar
+        left: '0', 
+        width: '70px', // Adjusted width for a wider rocket
+        height: 'auto' // Maintain aspect ratio
+      }} 
+    />
+  
+
 
       {isLoading && (
         <div className="absolute top-40 left-0 right-0 flex justify-center mt-0 z-10">
@@ -92,7 +120,6 @@ export default function Home() {
         <div className="clouds"></div>
       </div>
 
-      {/* Fade-in animation should trigger here */}
       {!isLoading && (
         <div
           className={`relative flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 md:p-8 rounded-lg shadow-lg overflow-hidden ${

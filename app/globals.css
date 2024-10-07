@@ -56,6 +56,17 @@ nav a:hover {
   height: 4px;
   background-color: #00f3ff;
   z-index: 99;
+  transition: width 0.2s ease-out;
+}
+
+/* Rocket */
+#rocket {
+  position: fixed; /* Fixed to stay at the top */
+  top: -20px; /* Position above the progress bar */
+  left: 0;
+  width: 70px; /* Wider rocket */
+  height: auto;
+  transform: rotate(90deg); /* Rotate the rocket 90 degrees */
 }
 
 /* Headings with glow effect and hover states */
@@ -175,6 +186,7 @@ img {
     transform: translateY(0);
 }
 }
+
 /* Fade-in and Slide-up animation */
 @keyframes fadeSlideIn {
   0% {
@@ -239,6 +251,7 @@ img {
     transform: translateX(0);
 }
 }
+
 .scroll-text-left p {
   animation: fadeInText 1.5s ease-in-out;
 }
@@ -296,13 +309,13 @@ img {
   }
 
   .scroll-text-container {
-    flex-direction: column;
+    flex-direction: column; /* Stack image and text vertically */
     justify-content: center;
     align-items: center;
   }
 
   .scroll-text-left, .scroll-image-right {
-    width: 100%;
+    width: 100%; /* Full width for text and image */
     text-align: center;
   }
 
@@ -341,8 +354,6 @@ img {
     width: 40%;
   }
 }
-
-
 
 /* iPad Pro responsiveness (1024x1366) */
 @media (min-width: 1024px) and (max-width: 1366px) {
