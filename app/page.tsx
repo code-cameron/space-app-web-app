@@ -12,11 +12,11 @@ export default function Home() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-      setIsContentVisible(true);  // Show content after GIF
       setTimeout(() => {
-        setIsAnimated(true);  // Start underline animation
-      }, 1000);
-    }, 2000);
+        setIsContentVisible(true); // Set content visible with a delay
+        setIsAnimated(true); // Trigger the underline animation
+      }, 500); // Adjust the delay here if needed
+    }, 2000); // 2-second delay for the GIF
 
     return () => clearTimeout(timer);
   }, []);
@@ -92,15 +92,22 @@ export default function Home() {
         <div className="clouds"></div>
       </div>
 
+      {/* Fade-in animation should trigger here */}
       {!isLoading && (
         <div
-          className={`relative flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 md:p-8 rounded-lg shadow-lg overflow-hidden fade-in-slide ${isContentVisible ? "opacity-100" : "opacity-0"}`}
+          className={`relative flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 md:p-8 rounded-lg shadow-lg overflow-hidden ${
+            isContentVisible ? "fade-in" : "opacity-0"
+          }`}
         >
-          <h1 className={`text-blue-500 text-3xl sm:text-5xl lg:text-6xl transition-all duration-1000 ease-out ${isAnimated ? "animate-underline" : ""}`}>
+          <h1
+            className={`text-blue-500 text-3xl sm:text-5xl lg:text-6xl transition-all duration-1000 ease-out ${
+              isAnimated ? "animate-underline" : ""
+            }`}
+          >
             Welcome to Planetary Seismology Explorer
           </h1>
 
-          <div className="flex flex-col md:flex-row items-center mt-8 fade-in-slide">
+          <div className="flex flex-col md:flex-col lg:flex-row items-center mt-8">
             <Image
               src="/images/image1.webp"
               alt="Seismology Image"
@@ -108,10 +115,10 @@ export default function Home() {
               height={400}
               priority
               quality={100}
-              className="mb-4 md:mb-0 rounded-lg shadow-md"
+              className="mb-4 md:mb-8 lg:mb-0 rounded-lg shadow-md"
             />
 
-            <div className="md:ml-8 text-center md:text-left">
+            <div className="md:ml-0 lg:ml-8 text-center md:text-center lg:text-left">
               <h2 className="text-white text-lg sm:text-xl md:text-2xl mb-2 hover:text-shadow-lg">
                 Unlocking the Secrets of Seismic Events on Other Worlds
               </h2>
@@ -137,6 +144,7 @@ export default function Home() {
             </div>
           </div>
 
+          {/* Scroll-triggered content */}
           {showScrollText && (
             <div className="scroll-text-container fade-in-scroll flex items-center">
               <div className="scroll-text-left text-white text-lg sm:text-xl md:text-2xl p-4 sm:p-6 md:p-8">

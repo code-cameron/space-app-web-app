@@ -175,7 +175,6 @@ img {
     transform: translateY(0);
 }
 }
-
 /* Fade-in and Slide-up animation */
 @keyframes fadeSlideIn {
   0% {
@@ -187,13 +186,9 @@ img {
     transform: translateY(0);
 }
 }
-.fade-in-slide {
+.fade-in {
+  opacity: 1;
   animation: fadeSlideIn 2s ease-out;
-}
-
-.relative {
-  position: relative;
-  z-index: 1;
 }
 
 .fade-in-scroll {
@@ -232,8 +227,8 @@ img {
   100% {
     opacity: 1;
     transform: translateX(0);
-}
-}
+}}
+
 @keyframes fadeInText {
   0% {
     opacity: 0;
@@ -270,7 +265,7 @@ img {
   }
 
   .scroll-text-container {
-    flex-direction: column; /* Stack image and text vertically */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
@@ -301,13 +296,13 @@ img {
   }
 
   .scroll-text-container {
-    flex-direction: column; /* Stack image and text vertically */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
 
   .scroll-text-left, .scroll-image-right {
-    width: 100%; /* Full width for text and image */
+    width: 100%;
     text-align: center;
   }
 
